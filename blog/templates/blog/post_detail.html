@@ -1,4 +1,7 @@
-{{post.author.user.image.url}}
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  {{post.author.user.image.url}}
 {{post.author}}
 {{post.date}}
 {% if object.author == user %}
@@ -9,3 +12,5 @@
 {% endif %}
 {{post.title}}
 {{post.content}}
+</div>
+{% endblock %}

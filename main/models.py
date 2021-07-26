@@ -49,7 +49,20 @@ class Business(models.Model):
     @classmethod
     def search_biz(cls, searchTerm):
         biz = cls.objects.filter(name__icontains=searchTerm)
-        return biz        
+        return biz  
+    def __str__(self):
+        return f'{self.name} Business'
+
+    def create_business(self):
+        self.save()
+
+    def delete_business(self):
+        self.delete()
+
+    @classmethod
+    def find_business(cls, business_id):
+        return cls.objects.filter(id=business_id)
+      
 
 class EmergencyContact(models.Model):
     name = models.CharField(max_length=250)

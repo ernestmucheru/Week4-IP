@@ -1,10 +1,12 @@
-
+{% extends 'base.html' %}
 {% block content %}
-{% for post in posts %}
+<div class="container">
+    {% for post in posts %}
 {{post.author.user.image.url}}
 {{post.author}}
 {{post.date}}
 <a href="{%url 'post-detail' post.id%}">{{post.title}}</a>
 {{post.content}}
 {% endfor %}
+</div>
 {% endblock content %}
