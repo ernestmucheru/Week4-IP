@@ -1,12 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
+# from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
-
+# from django.db.models.signals import post_save
+from authy.models import *
 # Create your models here.
+
+
 class NeighbourHood(models.Model):
     name = models.CharField(max_length=250)
     location = models.CharField(max_length=250)
     image = CloudinaryField('image')
+    description = models.TextField(null=True)
 
     class Meta:
         db_table = 'neighbourhoods'

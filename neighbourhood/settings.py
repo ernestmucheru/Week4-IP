@@ -26,6 +26,11 @@ cloudinary.config(
   api_secret = "JO6MbShOUPFIYs_FYcod3iYTBQA"
 )
 
+UPLOADCARE = {
+    'pub_key': 'cd8dfc86e67cdf95105a',
+    'secret': '3d409a686b4b47291a4e',
+}
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -55,6 +60,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'blog',
     'cloudinary',
+    'pyuploadcare.dj',
 ]
 
 MIDDLEWARE = [
