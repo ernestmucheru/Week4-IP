@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import NeighbourHood
+from .models import NeighbourHood, Business
 from pyuploadcare.dj.forms import ImageField
 from authy.models import Profile
 
@@ -12,3 +12,7 @@ class NeighbourHoodForm(forms.ModelForm):
     class Meta:
         model = NeighbourHood
         exclude = ('admin',)
+class BusinessForm(forms.ModelForm):
+    class Meta:
+        model = Business
+        exclude = ('user', 'neighbourhood')
