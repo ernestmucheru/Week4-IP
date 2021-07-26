@@ -8,6 +8,7 @@ urlpatterns =[
     # path('post/new/', PostCreateView.as_view(), name='post-create'),
     # path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     # path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
-    path('new-post', views.create_post, name='post')
+    path('new-post', views.create_post, name='post'),
+    path('<hood_id>/new-post', views.create_post, name='post')
 
 ]
