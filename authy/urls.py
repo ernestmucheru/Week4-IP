@@ -9,7 +9,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
-    path('profile/', views.Profile, name='profile'),
+    path('profile/<username>', views.profile, name='profile'),
     path('profile/<username>/edit/', views.edit_profile, name='edit-profile'),
 ]
 if settings.DEBUG:

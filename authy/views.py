@@ -1,6 +1,5 @@
-from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm,UserUpdateForm, UpdateProfileForm
+from django.shortcuts import render,redirect, get_object_or_404
+from .forms import CreateUserForm, UpdateProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from main.views import home
@@ -57,5 +56,3 @@ def edit_profile(request, username):
     else:
         form = UpdateProfileForm(instance=request.user.profile)
     return render(request, 'editprofile.html', {'form': form})
-
-

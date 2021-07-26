@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
-class Neighbourhood(models.Model):
+class NeighbourHood(models.Model):
     name = models.CharField(max_length=250)
     location = models.CharField(max_length=250)
-    image = models.ImageField(upload_to='hood_images/', blank=True)
+    image = CloudinaryField('image')
 
     class Meta:
         db_table = 'neighbourhoods'
