@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm,UserUpdateForm, ProfileUpdateForm
+from .forms import CreateUserForm,UserUpdateForm, UpdateProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from main.views import home
+from django.contrib.auth.models import User
+from .models import Profile
 
 def register(request):
     if request.user.is_authenticated:
@@ -41,23 +43,19 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-def Profile(request):
+def profile(request, username):
+    return render(request, 'profile.html')
+
+
+def edit_profile(request, username):
+    user = User.objects.get(username=username)
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance = request.user)
-        p_form = ProfileUpdateForm(request.POST,request.FILES, instance = request.user.profile)
-
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.info(request, 'Your details have been updated')
-            return redirect('profile')
+        form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', user.username)
     else:
-         u_form = UserUpdateForm(instance = request.user)
-         p_form = ProfileUpdateForm(instance = request.user.profile)
+        form = UpdateProfileForm(instance=request.user.profile)
+    return render(request, 'editprofile.html', {'form': form})
 
-    context = {
-        'u_form': u_form,
-        'p_form': p_form
-    }
-    return render(request,'profile.html',context)
 
