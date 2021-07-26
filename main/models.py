@@ -44,3 +44,20 @@ class Business(models.Model):
     def search_biz(cls, searchTerm):
         biz = cls.objects.filter(name__icontains=searchTerm)
         return biz        
+
+class EmergencyContact(models.Model):
+    name = models.CharField(max_length=250)
+    contact = models.CharField(max_length=250)
+    description = models.TextField()
+
+    class Meta:
+        db_table = 'e_contacts'
+        ordering = ['-name']
+
+    def __repr__(self):
+        return f'{self.name}'
+
+    @classmethod
+    def search_emergencies(cls, searchTerm):
+        emergencies = cls.objects.filter(name__icontains=searchTerm)
+        return emergencies
