@@ -12,6 +12,8 @@ class NeighbourHood(models.Model):
     location = models.CharField(max_length=250)
     image = CloudinaryField('image')
     description = models.TextField(null=True)
+    health = models.IntegerField(null=True, blank=True)
+    police = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'neighbourhoods'
