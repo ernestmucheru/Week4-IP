@@ -2,29 +2,30 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from authy.models import Profile
+from main.models import NeighbourHood
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_owner')
+    hood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, related_name='hood_post')
 
     class Meta:
         db_table = 'posts'
-        ordering = ['-title']
         
     def __str__(self):
-        return self.title
+        return self.post
 
-    def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('post-detail', kwargs={'pk': self.pk})
     
 
-    def __repr__(self):
-        return f'{self.title}'
+    # def __repr__(self):
+    #     return f'{self.title}'
 
-    @classmethod
-    def search_posts(cls, searchTerm):
-        posts = cls.objects.filter(title__icontains=searchTerm)
-        return posts
+    # @classmethod
+    # def search_posts(cls, searchTerm):
+    #     posts = cls.objects.filter(title__icontains=searchTerm)
+    #     return posts

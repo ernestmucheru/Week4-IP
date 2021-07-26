@@ -4,6 +4,7 @@ from .models import NeighbourHood, Business
 from pyuploadcare.dj.forms import ImageField
 from authy.models import Profile
 
+
 class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
