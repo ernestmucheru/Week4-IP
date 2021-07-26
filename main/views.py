@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import NeighbourHood
+from .models import NeighbourHood, Business
 from .forms import NeighbourHoodForm, UpdateProfileForm
 from django.contrib.auth.models import User
 
@@ -44,7 +44,13 @@ def leave_hood(request, id):
 
 def single_hood(request, hood_id):
     hood = NeighbourHood.objects.get(id=hood_id)
-    return render(request, 'single_hood.html')
+    business = Business.objects.filter(neighbourhood=hood)
+    print(business)
+    params = {
+        'hood': hood,
+        'business': business
+    }
+    return render(request, 'single_hood.html', params)
 
 
 def profile(request, username):
