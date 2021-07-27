@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 # from django.db.models.signals import post_save
 from authy.models import *
+
 # Create your models here.
 
 
@@ -12,12 +13,8 @@ class NeighbourHood(models.Model):
     location = models.CharField(max_length=250)
     image = CloudinaryField('image')
     description = models.TextField(null=True)
-    health = models.IntegerField(null=True, blank=True)
-    police = models.IntegerField(null=True, blank=True)
-
-    class Meta:
-        db_table = 'neighbourhoods'
-        ordering = ['-name']
+    health_tell = models.IntegerField(null=True, blank=True)
+    police_number = models.IntegerField(null=True, blank=True)
 
     def __repr__(self):
         return f'{self.name}'
@@ -38,20 +35,12 @@ class NeighbourHood(models.Model):
 class Business(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField()
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, related_name='business')
     location = models.CharField(max_length=250)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
-    class Meta:
-        db_table = 'businesses'
-        ordering = ['-name']
 
-    def __repr__(self):
-        return f'{self.name}'
-
-    @classmethod
-    def search_biz(cls, searchTerm):
-        biz = cls.objects.filter(name__icontains=searchTerm)
-        return biz  
     def __str__(self):
         return f'{self.name} Business'
 
@@ -62,23 +51,7 @@ class Business(models.Model):
         self.delete()
 
     @classmethod
-    def find_business(cls, business_id):
-        return cls.objects.filter(id=business_id)
+    def search_business(cls, name):
+        return cls.objects.filter(name__icontains=name).all()
       
 
-class EmergencyContact(models.Model):
-    name = models.CharField(max_length=250)
-    contact = models.CharField(max_length=250)
-    description = models.TextField()
-
-    class Meta:
-        db_table = 'e_contacts'
-        ordering = ['-name']
-
-    def __repr__(self):
-        return f'{self.name}'
-
-    @classmethod
-    def search_emergencies(cls, searchTerm):
-        emergencies = cls.objects.filter(name__icontains=searchTerm)
-        return emergencies

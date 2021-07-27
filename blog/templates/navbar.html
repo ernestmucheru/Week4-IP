@@ -1,97 +1,115 @@
+{%load bootstrap4%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light grey lighten-3 d-block">
 
-  <div class="container">
-
-    <!-- Collapse button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse mb-1" id="basicExampleNav">
-
-      <!-- Links -->
-      <ul class="navbar-nav mr-auto text-uppercase font-weight-normal">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Eng</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-muted" href="#">Pol</a>
-        </li>
-      </ul>
-      <!-- Links -->
-      
-      <a class="navbar-brand pt-0 pb-1" href="#"><i class="fab fa-3x fa-mdb"></i></a>
-      
-      <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item"><a href="#!" class="nav-link waves-effect"><span class="badge red z-depth-1 mr-1"> 2 </span><i id="navbar-static-cart" alt="Cart" class="fas fa-shopping-cart"></i><span class="sr-only"> Cart </span></a></li>
-
-        <li class="nav-item">
-          <a class="nav-link font-weight-normal" href="#!"><i id="navbar-static-cart" alt="Cart" class="fas fa-search"></i></a>
-        </li>
-      </ul>
-
-    </div>
-    <!-- Collapsible content -->
-
-  </div>
+    <div class="container">
   
-  <hr class="w-100 mt-0">
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
   
-  <div class="container pb-2">
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse mb-1" id="basicExampleNav">
+  
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto text-uppercase font-weight-normal">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Posts</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav nav-flex-icons ml-auto">
 
-    <!-- Collapse button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav1"
-      aria-controls="basicExampleNav1" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse pt-1" id="basicExampleNav1">
-
-      <!-- Links -->
-      <ul class="navbar-nav mr-auto text-uppercase font-weight-normal">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-muted" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-muted" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-muted" href="#">Contact</a>
-        </li>
-
-      </ul>
-      <!-- Links -->
-      
-      <ul class="nav navbar-nav nav-flex-icons ml-auto">
-
-        <li class="nav-item d-none d-xl-inline-block" alt="Support" id="navbar-static-support">
-          <a href="" class="nav-link waves-effect">
-          <i class="fas fa-question-circle"></i><span class="d-none d-xl-inline-block ml-1">Support</span>
-          </a>
-        </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link text-muted" href="{% url 'profile' user.username %}">Hi, {{user.username}}</a>
+          </li>
+          <li class="nav-item d-none d-xl-inline-block" alt="Support" id="navbar-static-support">
+            <a href="{% url 'edit-profile' user.username %}" class="nav-link waves-effect">
+              <i class="fas fa-wrench"></i><span class="d-none d-xl-inline-block ml-1">Edit Profile</span>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link text-muted" href="{% url 'edit-profile' user.username %}"><i class="fas fa-edit"></i>&nbsp;
+              &nbsp; Edit Profile</a>
+          </li> -->
+        </ul>
         
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"><i class="fas fa-wrench"></i><span class="d-none d-xl-inline-block ml-1">Tools</span></a>
-          <div class="dropdown-menu dropdown-dark dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-      </ul>
+      </div>
 
+      <!-- Collapsible content -->
+  
     </div>
-    <!-- Collapsible content -->
+    
+    <hr class="w-100 mt-0">
+    
+    <div class="container pb-2">
+  
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav1"
+        aria-controls="basicExampleNav1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse pt-1" id="basicExampleNav1">
+  
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto text-uppercase font-weight-normal">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'hood' %}"><i class="fas fa-home"></i>&nbsp;
+              &nbsp; Hoods</a>
+          </li>
+          
+          
+  
+        </ul>
+        <!-- Links -->
+        
+        <ul class="nav navbar-nav nav-flex-icons ml-auto">
 
-  </div>
+          {% if user.profile.neighbourhood %}
+          <li class="nav-item">
+            <a class="nav-link text-muted" href=""><i class="fab fa-houzz"></i>&nbsp;
+              &nbsp;{{user.profile.neighbourhood.name}}</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-muted" href="#"> &nbsp;
+              No Hood Yet</a>
+          </li>
+          {% endif %}
 
-</nav>
-<!--/.Navbar-->
+         
+          <li class="nav-item">
+            <a class="nav-link text-muted" href="{% url 'logout' %}">Logout</a>
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false"><i class="fas fa-wrench"></i><span class="d-none d-xl-inline-block ml-1">Tools</span></a>
+            <div class="dropdown-menu dropdown-dark dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li> -->
+          
+        </ul>
+  
+      </div>
+      <!-- Collapsible content -->
+  
+    </div>
+    {% endif%}
+  </nav>
+  <!--/.Navbar-->
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

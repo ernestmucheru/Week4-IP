@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
+{%load bootstrap4%}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-    <h1>Welcome to HoodWatch</h1>
+    <!-- <h1>Welcome to HoodWatch</h1> -->
+    <br>
+    <br><br>
     <div class="row">
         {% for hood in all_hoods %}
         <div class="col-md-4">
             <div class="card mb-4" style="min-height:340px">
-                <img src="{{ hood.hood_logo.url }}" class="card-img-top" alt="{{ hood.name }}">
+                <img src="{{ hood.image.url }}" class="card-img-top" alt="{{ hood.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ hood.name }}  ({{hood.location}}) <span style="float:right">{{hood.members.count}} member{{hood.members.count|pluralize}}</span></h5>
                     <p class="card-text">{{hood.description}}</p>
@@ -21,5 +24,8 @@
         </div>
         {% endfor %}
     </div>
+    <!-- Card deck -->
+
 </div>
+
 {% endblock %}

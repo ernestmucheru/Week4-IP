@@ -4,6 +4,7 @@ from .models import NeighbourHood, Business
 from .forms import NeighbourHoodForm, UpdateProfileForm, BusinessForm
 from django.contrib.auth.models import User
 from blog.models import Post
+from authy.models import Profile
 
 # Create your views here.
 @login_required(login_url='login')
@@ -18,6 +19,11 @@ def hoods(request):
     }
     return render(request, 'all_hoods.html', params)
 
+def hood_members(request, hood_id):
+    hood = NeighbourHood.objects.get(id=hood_id)
+    members = Profile.objects.filter(neighbourhood=hood)
+    return render(request, 'members.html', {'members': members})
+
 
 
 def create_hood(request):
@@ -27,6 +33,7 @@ def create_hood(request):
             hood = form.save(commit=False)
             hood.admin = request.user.profile
             hood.save()
+            return redirect('hood')
     else:
         form = NeighbourHoodForm()
     return render(request, 'newhood.html', {'form': form})
@@ -44,10 +51,11 @@ def leave_hood(request, id):
     request.user.profile.save()
     return redirect('hood')
 
-def single_hood(request, hood_id):
-    hood = NeighbourHood.objects.get(id=hood_id)
+def single_hood(request, id):
+    hood = NeighbourHood.objects.get(id=id)
     business = Business.objects.filter(neighbourhood=hood)
     posts = Post.objects.filter(hood=hood)
+    posts = posts[::-1]
     if request.method == 'POST':
         form = BusinessForm(request.POST)
         if form.is_valid():
@@ -55,16 +63,16 @@ def single_hood(request, hood_id):
             b_form.neighbourhood = hood
             b_form.user = request.user.profile
             b_form.save()
-            return redirect('single-hood', hood.id)
+            return redirect('single-hood', id)
     else:
         form = BusinessForm()
-    params = {
+    context = {
         'hood': hood,
         'business': business,
         'form': form,
         'posts': posts
     }
-    return render(request, 'single_hood.html', params)
+    return render(request, 'single_hood.html', context)
 def profile(request, username):
     return render(request, 'profile.html')
 
@@ -79,3 +87,18 @@ def edit_profile(request, username):
     else:
         form = UpdateProfileForm(instance=request.user.profile)
     return render(request, 'editprofile.html', {'form': form})
+
+def search_business(request):
+    if request.method == 'GET':
+        name = request.GET.get("title")
+        results = Business.objects.filter(name__icontains=name).all()
+        print(results)
+        message = f'name'
+        params = {
+            'results': results,
+            'message': message
+        }
+        return render(request, 'results.html', params)
+    else:
+        message = "You haven't searched for any image category"
+    return render(request, "results.html")
