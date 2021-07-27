@@ -3,10 +3,17 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-    <!-- <h1>Welcome to HoodWatch</h1> -->
-    <br>
-    <br><br>
+    <!-- <h1>Welcome to HoodWatch</h1> -->    
     <div class="row">
+                <!--Section: Content-->
+            <section class="text-center white-text d-md-flex justify-content-between p-5 indigo lighten-2">
+          
+              <!-- <h3 class="font-weight-bold mb-md-0 mb-4 mt-2 pt-1">Lorem ipsum dolor sit amet.</h3> -->
+              
+              <a href="{% url 'new-hood' %}" type="button" class="btn btn-white btn-rounded">Add your hood</a>
+          
+            </section>
+            <!--Section: Content-->
         {% for hood in all_hoods %}
         <div class="col-md-4">
             <div class="card mb-4" style="min-height:340px">

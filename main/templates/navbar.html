@@ -72,11 +72,12 @@
         </ul>
         <!-- Links -->
         
+        
         <ul class="nav navbar-nav nav-flex-icons ml-auto">
 
           {% if user.profile.neighbourhood %}
           <li class="nav-item">
-            <a class="nav-link text-muted" href=""><i class="fab fa-houzz"></i>&nbsp;
+            <a class="nav-link text-muted" href="{% url 'single_hood' hood_id%}"><i class="fab fa-houzz"></i>&nbsp;
               &nbsp;{{user.profile.neighbourhood.name}}</a>
           </li>
           {% else %}

@@ -10,6 +10,19 @@
     </div>
 
 </div> -->
+<br>
+<br>
+<div class="container">
+    <form class="form-inline" method="get" action="{% url 'search' %}">
+        {% csrf_token %}
+        <div class="md-form my-0">
+            <input class="form-control mr-sm-2 " type="text" value="text" placeholder="Search Business" name="title" aria-label="Search">
+            <input type="submit" value="submit">
+        </div>
+    </form>
+    <hr>
+</div>
+
 <div class="container my-5 py-5"style="background-image: url(https://mdbootstrap.com/img/Photos/Others/background2.jpg); background-repeat:no-repeat;background-size:cover;">
 
 

@@ -24,8 +24,6 @@ def hood_members(request, hood_id):
     members = Profile.objects.filter(neighbourhood=hood)
     return render(request, 'members.html', {'members': members})
 
-
-
 def create_hood(request):
     if request.method == 'POST':
         form = NeighbourHoodForm(request.POST, request.FILES)
@@ -89,16 +87,23 @@ def edit_profile(request, username):
     return render(request, 'editprofile.html', {'form': form})
 
 def search_business(request):
-    if request.method == 'GET':
-        name = request.GET.get("title")
-        results = Business.objects.filter(name__icontains=name).all()
-        print(results)
-        message = f'name'
-        params = {
-            'results': results,
-            'message': message
-        }
-        return render(request, 'results.html', params)
-    else:
-        message = "You haven't searched for any image category"
-    return render(request, "results.html")
+    if request.method == 'POST':
+        name = request.POST.get("name",None)
+        if name:
+            results = Business.objects.filter(business_name__contains=name)
+            return render(request, 'business/business_search.html', {"results":results})
+        else:
+            message = "You haven't searched for any image category"
+    return render(request, 'results.html')
+
+    #     results = Business.objects.filter(name__icontains=name).all()
+    #     print(results)
+    #     message = f'name'
+    #     params = {
+    #         'results': results,
+    #         'message': message
+    #     }
+    #     return render(request, 'results.html', params)
+    # else:
+    #     message = "You haven't searched for any image category"
+    # return render(request, "results.html")
