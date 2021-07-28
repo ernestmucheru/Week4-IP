@@ -49,28 +49,29 @@ def leave_hood(request, id):
     request.user.profile.save()
     return redirect('hood')
 
-def single_hood(request, id):
+@login_required(login_url='/login')
+def single_hood(request,id):
     hood = NeighbourHood.objects.get(id=id)
-    business = Business.objects.filter(neighbourhood=hood)
+    businesses = Business.objects.filter(neighbourhood=hood)
     posts = Post.objects.filter(hood=hood)
-    posts = posts[::-1]
-    if request.method == 'POST':
-        form = BusinessForm(request.POST)
-        if form.is_valid():
-            b_form = form.save(commit=False)
-            b_form.neighbourhood = hood
-            b_form.user = request.user.profile
-            b_form.save()
-            return redirect('single-hood', id)
-    else:
-        form = BusinessForm()
+    user= Profile.objects.get(user=request.user)
+    member = False
+
+    
+    if (user.neighbourhood == None):
+        member = False
+    elif(user.neighbourhood == hood):
+        member = True
+   
     context = {
-        'hood': hood,
-        'business': business,
-        'form': form,
-        'posts': posts
+        "hood":hood,
+        'businesses':businesses,
+        'posts':posts,
+        'member':member,
+        
     }
-    return render(request, 'single_hood.html', context)
+    return render(request,'single_hood.html',context)
+
 def profile(request, username):
     return render(request, 'profile.html')
 
